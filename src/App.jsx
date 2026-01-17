@@ -55,13 +55,14 @@ function App() {
       <section id="contact" className="contact">
         <h2>Contact Me</h2>
         <p>
-          Email:{" "}
-          <a href="mailto:eleanor.opolo@email.com">eleanor.opolo@email.com</a>
+          Email: <a href="mailto:opololinda@gmail.com">opololinda@gmail.com</a>
         </p>
         <p>Phone: +254711852605</p>
         <p>
           LinkedIn:{" "}
-          <a href="linkedin.com/in/linda-opolo-91a0992bb">linkedin.com/in</a>
+          <a href="https://www.linkedin.com/in/linda-opolo-91a0992bb/">
+            linkedin.com/in
+          </a>
         </p>
       </section>
 
