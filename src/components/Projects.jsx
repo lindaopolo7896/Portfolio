@@ -36,10 +36,10 @@ const projects = [
 ];
 function Projects() {
   return (
-    <div className="px-29 py-20">
+    <div className="px-3 md:px-8 lg:px-29 py-20">
       <h1 className="text-4xl font-bold py-4 text-[#14B8A6]">My Work</h1>
 
-      <div className="grid grid-cols-3 gap-10 mt-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

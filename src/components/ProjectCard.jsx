@@ -7,7 +7,7 @@ function ProjectCard({ project }) {
       <div
         className="flex flex-col justify-end bg-cover bg-center h-105 shadow-xl shadow-[#14B8A6] "
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${project.image})`,
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${project.image})`,
         }}
       >
         <div className="p-5 ">
@@ -37,7 +37,7 @@ function ProjectCard({ project }) {
           absolute inset-0 
           bg-black/60 backdrop-blur-md
 
-          opacity-0 
+          lg:opacity-0 
           group-hover:opacity-100
          
 

@@ -13,7 +13,7 @@ import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
-    <div className="bg-[#00141D] h-auto">
+    <div className="bg-[#00141D] h-auto ">
       <Header />
 
       <Routes>
