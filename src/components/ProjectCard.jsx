@@ -56,12 +56,26 @@ function ProjectCard({ project }) {
         "
       >
         <div
-          className=" w-full h-70 bg-cover bg-center flex items-end px-4 pb-2"
+          className=" w-full h-70 bg-cover bg-center flex flex-col justify-end px-4 pb-2"
           style={{
             backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${project.image}) `,
           }}
         >
-          <div className="flex gap-4 justify-between mt-2 w-full px-6 bg-[#00141D] rounded-full">
+          <div className="flex gap-3 mb-5 flex-wrap  lg:hidden">
+            {project.tech.map((item, index) => (
+              <span
+                key={index}
+                className="
+                px-4 py-1 rounded-full text-sm text-white
+                bg-white/10 backdrop-blur-md
+                border border-white/20
+              "
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+          <div className="flex gap-4 justify-between  w-full px-6 bg-[#00141D] rounded-full">
             <a
               href={project.figmaLink}
               target="_blank"
