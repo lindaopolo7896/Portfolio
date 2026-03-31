@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function Header() {
   return (
-    <header className="bg-white/5 backdrop-blur-md  shadow-lg flex w-11/12   md:w-7/8 items-center justify-between py-6 px-3 md:px-10 fixed top-10 border border-[#14B8A6]/20 z-10 left-1/2 -translate-x-1/2  rounded-full ">
+    <motion.header
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      className="bg-white/5 backdrop-blur-md  shadow-lg flex w-11/12   md:w-7/8 items-center justify-between py-6 px-3 md:px-10 fixed top-10 border border-[#14B8A6]/20 z-10 left-1/2 -translate-x-1/2  rounded-full "
+    >
       <Link
         to="/"
         className="text-white md:text-xl font-semibold cursor-pointer"
@@ -24,7 +30,7 @@ function Header() {
           Download CV
         </a>
       </nav>
-    </header>
+    </motion.header>
   );
 }
 

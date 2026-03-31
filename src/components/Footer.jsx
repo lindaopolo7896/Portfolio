@@ -3,10 +3,16 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 function Footer() {
   return (
-    <footer className="">
+    <motion.footer
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+      className=""
+    >
       <h1 className="text-center text-[#14B8A6] font-bold text-5xl">
         Contact Me
       </h1>
@@ -51,7 +57,7 @@ function Footer() {
       <p className="text-white/80 text-sm text-center pt-12 pb-4">
         &copy; {new Date().getFullYear()} Eleanor Opolo. All rights reserved.
       </p>
-    </footer>
+    </motion.footer>
   );
 }
 
