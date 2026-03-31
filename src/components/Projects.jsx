@@ -28,7 +28,7 @@ const projects = [
     id: 2,
     title: "Beat Box",
     description:
-      "A personal portfolio website showcasing projects, skills, and contact information with a modern UI.",
+      "BeatBox is a music discovery web application that allows users to explore trending tracks, search for artists and songs, and browse music by genre. The app integrates with a music API to display real-time data and presents it through a responsive interface with both light and dark modes.",
     image: BeatBoxImg,
     tech: ["React", "Tailwind CSS"],
     liveLink: "https://your-portfolio.com",
