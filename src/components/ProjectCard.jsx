@@ -1,121 +1,229 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaGithub } from "react-icons/fa";
-import { motion } from "framer-motion";
+
+const WIN_STYLE = {
+  fontFamily: '"Tahoma", "MS Sans Serif", sans-serif',
+  fontSize: '11px',
+  color: '#000000',
+};
 
 function ProjectCard({ project }) {
+  const [hovered, setHovered] = useState(false);
+  const [tabActive, setTabActive] = useState('info');
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 200, duration: 0.7 }}
-      className="relative  rounded-2xl overflow-hidden group cursor-pointer h-auto"
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        ...WIN_STYLE,
+        background: '#D4D0C8',
+        borderTop: '2px solid #FFFFFF',
+        borderLeft: '2px solid #FFFFFF',
+        borderRight: '2px solid #404040',
+        borderBottom: '2px solid #404040',
+        boxShadow: hovered ? '3px 3px 0 #000000' : '2px 2px 0 #000000',
+        transform: hovered ? 'translate(-1px, -1px)' : 'none',
+        transition: 'transform 0.1s, box-shadow 0.1s',
+      }}
     >
-      <div
-        className="flex flex-col justify-end bg-cover bg-center h-auto min-h-150  shadow-xl shadow-[#14B8A6] "
-        style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${project.image})`,
-        }}
-      >
-        <div className="p-5 ">
-          <h2 className="text-2xl font-bold text-[#14B8A6] mb-2">
-            {project.title}
-          </h2>
-
-          <div className="flex gap-3 mb-5 flex-wrap">
-            {project.tech.map((item, index) => (
-              <span
-                key={index}
-                className="
-                px-4 py-2 rounded-full text-sm text-white
-                bg-white/10 backdrop-blur-md
-                border border-white/20
-              "
-              >
-                {item}
-              </span>
-            ))}
-          </div>
+      {/* Title Bar */}
+      <div style={{
+        background: hovered
+          ? 'linear-gradient(to right, #0A246A, #A6CAF0)'
+          : 'linear-gradient(to right, #808080, #A0A0A0)',
+        padding: '3px 6px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: '22px',
+        userSelect: 'none',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#FFFFFF', fontWeight: 'bold', fontSize: '11px' }}>
+          <span style={{ fontSize: '12px' }}>🗂</span>
+          {project.title}
+        </div>
+        <div style={{ display: 'flex', gap: '2px' }}>
+          {['_', '□', '✕'].map((btn, i) => (
+            <button key={i} style={{
+              width: '16px', height: '14px',
+              background: '#D4D0C8',
+              borderTop: '1px solid #FFFFFF', borderLeft: '1px solid #FFFFFF',
+              borderRight: '1px solid #404040', borderBottom: '1px solid #404040',
+              fontSize: '9px', cursor: 'pointer',
+              fontFamily: 'monospace', color: '#000000', padding: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>{btn}</button>
+          ))}
         </div>
       </div>
 
-      <div
-        className="
-          absolute inset-0 
-          bg-black/60 backdrop-blur-md
-
-          lg:opacity-0 
-          group-hover:opacity-100
-         
-
-          transition-all duration-500
-
-          flex flex-col
-
-          
-        "
-      >
-        <div
-          className=" w-full h-70 bg-cover bg-center flex flex-col justify-end px-4 pb-2"
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(${project.image}) `,
-          }}
-        >
-          <div className="flex gap-3 mb-5 flex-wrap  lg:hidden">
-            {project.tech.map((item, index) => (
-              <span
-                key={index}
-                className="
-                px-4 py-1 rounded-full text-sm text-white
-                bg-white/10 backdrop-blur-md
-                border border-white/20
-              "
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-          <div className="flex gap-4 justify-between  w-full px-6 bg-[#00141D] rounded-full">
-            <a
-              href={project.figmaLink}
-              target="_blank"
-              className="
-               py-2 rounded-lg font-semibold 
-              text-[#00d1c1]
-              text-lg
-              hover:opacity-80 transition
-            "
-            >
-              Figma
-            </a>
-
-            <a
-              href={project.githubLink}
-              target="_blank"
-              className="
-               py-2 rounded-lg font-semibold text-white
-              
-            "
-            >
-              <FaGithub className="text-[30px] hover:text-[#00d1c1]" />
-            </a>
-          </div>
-        </div>
-        <div className="px-6 py-2">
-          <h2 className="text-[#00d1c1] text-2xl font-bold mb-4 mt-2">
-            {project.title}
-          </h2>
-
-          <p className="text-white/80">{project.description}</p>
-
-          <button className="w-full border-2 border-[#14b8a6] text-[#14b8a6] mt-6 mb-4 py-2 rounded-full text-lg font-semibold hover:bg-white hover:border-0 transition-all duration-300 ease-in-out">
-            <a href={project.liveLink} target="_blank">
-              Live Preview
-            </a>
+      {/* Tabs */}
+      <div style={{ display: 'flex', borderBottom: '1px solid #808080', background: '#D4D0C8', padding: '4px 4px 0 4px', gap: '2px' }}>
+        {['info', 'preview'].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setTabActive(tab)}
+            style={{
+              ...WIN_STYLE,
+              padding: '2px 12px',
+              cursor: 'pointer',
+              background: tabActive === tab ? '#D4D0C8' : '#B0ACA4',
+              borderTop: '2px solid #FFFFFF',
+              borderLeft: '2px solid #FFFFFF',
+              borderRight: '2px solid #404040',
+              borderBottom: tabActive === tab ? '2px solid #D4D0C8' : '2px solid #404040',
+              marginBottom: tabActive === tab ? '-1px' : '0',
+              zIndex: tabActive === tab ? 1 : 0,
+              position: 'relative',
+              fontWeight: tabActive === tab ? 'bold' : 'normal',
+              textTransform: 'capitalize',
+            }}
+          >
+            {tab}
           </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      <div style={{ padding: '8px' }}>
+        {tabActive === 'preview' ? (
+          <div style={{
+            borderTop: '2px solid #404040',
+            borderLeft: '2px solid #404040',
+            borderRight: '2px solid #FFFFFF',
+            borderBottom: '2px solid #FFFFFF',
+            overflow: 'hidden',
+            height: '160px',
+          }}>
+            <img
+              src={project.image}
+              alt={project.title}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {/* Description - like a text area */}
+            <div style={{
+              background: '#FFFFFF',
+              borderTop: '2px solid #404040',
+              borderLeft: '2px solid #404040',
+              borderRight: '2px solid #FFFFFF',
+              borderBottom: '2px solid #FFFFFF',
+              padding: '6px',
+              fontSize: '11px',
+              lineHeight: '1.5',
+              minHeight: '80px',
+              color: '#000000',
+            }}>
+              {project.description}
+            </div>
+
+            {/* Tech tags */}
+            <div>
+              <div style={{ fontSize: '11px', fontWeight: 'bold', marginBottom: '4px', color: '#000080' }}>
+                Technologies:
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2px' }}>
+                {project.tech.map((item, index) => (
+                  <span key={index} style={{
+                    display: 'inline-block',
+                    background: '#FFFFFF',
+                    borderTop: '2px solid #404040',
+                    borderLeft: '2px solid #404040',
+                    borderRight: '2px solid #FFFFFF',
+                    borderBottom: '2px solid #FFFFFF',
+                    padding: '1px 6px',
+                    fontSize: '10px',
+                    color: '#000080',
+                  }}>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Action buttons */}
+        <div style={{
+          display: 'flex',
+          gap: '4px',
+          marginTop: '8px',
+          paddingTop: '8px',
+          borderTop: '1px solid #808080',
+          flexWrap: 'wrap',
+        }}>
+          {project.liveLink && (
+            <a href={project.liveLink} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+              <button style={{
+                ...WIN_STYLE,
+                background: '#D4D0C8',
+                padding: '3px 10px',
+                cursor: 'pointer',
+                borderTop: '2px solid #FFFFFF',
+                borderLeft: '2px solid #FFFFFF',
+                borderRight: '2px solid #404040',
+                borderBottom: '2px solid #404040',
+              }}>
+                🌐 Live Preview
+              </button>
+            </a>
+          )}
+          {project.githubLink && (
+            <a href={project.githubLink} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+              <button style={{
+                ...WIN_STYLE,
+                background: '#D4D0C8',
+                padding: '3px 10px',
+                cursor: 'pointer',
+                borderTop: '2px solid #FFFFFF',
+                borderLeft: '2px solid #FFFFFF',
+                borderRight: '2px solid #404040',
+                borderBottom: '2px solid #404040',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}>
+                <FaGithub /> GitHub
+              </button>
+            </a>
+          )}
+          {project.figmaLink && (
+            <a href={project.figmaLink} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+              <button style={{
+                ...WIN_STYLE,
+                background: '#D4D0C8',
+                padding: '3px 10px',
+                cursor: 'pointer',
+                borderTop: '2px solid #FFFFFF',
+                borderLeft: '2px solid #FFFFFF',
+                borderRight: '2px solid #404040',
+                borderBottom: '2px solid #404040',
+              }}>
+                🎨 Figma
+              </button>
+            </a>
+          )}
         </div>
       </div>
-    </motion.div>
+
+      {/* Status bar at bottom of card */}
+      <div style={{
+        background: '#D4D0C8',
+        borderTop: '1px solid #808080',
+        padding: '2px 6px',
+        fontSize: '11px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '4px',
+        color: '#404040',
+      }}>
+        <span>📁</span> {project.tech[0]} project
+      </div>
+    </div>
   );
 }
+
 export default ProjectCard;
