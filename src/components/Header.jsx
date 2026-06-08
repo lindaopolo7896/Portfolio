@@ -21,7 +21,7 @@ function Header() {
           About
         </Link>
         <a
-          href="/src/assets/cv.pdf"
+          href="/CV.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="w-full flex items-center justify-center  bg-[#14B8A6] py-2 px-1 md:px-4 text-black font-bold text-sm md:text-lg rounded-full cursor-pointer hover:bg-[#118f80] hover:text-white transition-all duration-300 ease-in-out "
