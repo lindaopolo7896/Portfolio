@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #020403;
+  --color-bg2: #141413;
+  --color-fg: #edebe6;
+  --color-muted: #8d9391;
+  --color-line: rgba(237, 235, 230, 0.11);
+  --color-accent: #c1602f;
+  --color-card: #1a2324;
+  --color-brown: #5f2e1b;
+  --color-nav: rgba(2, 4, 3, 0.72);
+
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans: var(--font-geist), "Helvetica Neue", Helvetica, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-blink: blink 2.4s ease infinite;
+  --animate-blink-slow: blink 3s ease infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.25;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #0d0d0b;
+}
+
+/* diagonal-stripe image placeholder over the card color */
+.striped-placeholder {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(237, 235, 230, 0.05) 0 10px,
+      transparent 10px 22px
+    ),
+    var(--color-card);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-marquee,
+  .animate-blink,
+  .animate-blink-slow {
+    animation: none;
+  }
+}

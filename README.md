@@ -1,16 +1,40 @@
-# React + Vite
+# Eleanor Opolo — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio for Eleanor Linda Opolo, Frontend Software Engineer (Nairobi, Kenya). Built with **Next.js (App Router) + TypeScript + Tailwind CSS v4 + Framer Motion**, implementing the design in [design_handoff_portfolio_v1/README.md](design_handoff_portfolio_v1/README.md).
 
-Currently, two official plugins are available:
+## Getting started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev       # http://localhost:3000
+npm run build     # production build
+```
 
-## React Compiler
+## Contact form email
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The form posts to `POST /api/contact`, which sends the message by SMTP (Nodemailer). Configure it by copying `.env.example` to `.env.local`:
 
-## Expanding the ESLint configuration
+| Variable | Purpose |
+|---|---|
+| `SMTP_USER` | SMTP login (your Gmail address) |
+| `SMTP_PASS` | Gmail **App Password** (Google Account → Security → 2-Step Verification → App passwords) |
+| `SMTP_HOST` / `SMTP_PORT` | Default `smtp.gmail.com` / `465` — change for another provider |
+| `CONTACT_TO` | Delivery address (defaults to `SMTP_USER`) |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Without these set, the API responds with a friendly error and the form shows a direct `mailto:` fallback. Remember to add the same variables in your hosting dashboard (e.g. Vercel → Project → Settings → Environment Variables) when deploying.
+
+## Assets still to add
+
+- `public/Eleanor-Opolo-CV.pdf` — the nav "Download CV" button links here
+- Three project screenshots (Votex, ElimuApp, BingeBox) — replace the striped placeholders in [components/Work.tsx](components/Work.tsx)
+- Real GitHub / Live / Figma project URLs in [components/Work.tsx](components/Work.tsx), and the LinkedIn URL in [components/Contact.tsx](components/Contact.tsx)
+
+The About portrait already uses `public/portrait.jpeg`.
+
+## Structure
+
+- `app/layout.tsx` — fonts (Playfair Display, Geist, Geist Mono via `next/font`) + metadata
+- `app/globals.css` — design tokens (colors, easing, marquee/blink keyframes) as Tailwind v4 `@theme`
+- `app/page.tsx` — assembles the sections
+- `app/api/contact/route.ts` — email-sending endpoint
+- `components/` — Nav (scroll-spy), Hero, Marquee, About, Work (5s auto-alternating overlays), Experience, Skills, Contact, Footer, MouseOrb, Reveal
